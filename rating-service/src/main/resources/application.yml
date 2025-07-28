@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: rating-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/test
+    username: test
+    password: test
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+  packages-to-scan: com.myproject.ratingservice
+
+server:
+  port: 8089
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+
+service:
+  url: http://localhost:8089

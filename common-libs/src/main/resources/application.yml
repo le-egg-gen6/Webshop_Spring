@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: common-libs
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
