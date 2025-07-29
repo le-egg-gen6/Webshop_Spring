@@ -1,5 +1,6 @@
 package com.myproject.locationservice.view_model.state_or_province;
 
+import com.myproject.locationservice.model.StateOrProvince;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,4 +27,15 @@ public class StateOrProvinceDetailVM {
 
 	private Long countryId;
 	private String countryName;
+
+	public static StateOrProvinceDetailVM fromModel(StateOrProvince stateOrProvince) {
+		return StateOrProvinceDetailVM.builder()
+			.id(stateOrProvince.getId())
+			.code(stateOrProvince.getCode())
+			.name(stateOrProvince.getName())
+			.type(stateOrProvince.getType())
+			.countryId(stateOrProvince.getCountry().getId())
+			.countryName(stateOrProvince.getCountry().getName())
+			.build();
+	}
 }

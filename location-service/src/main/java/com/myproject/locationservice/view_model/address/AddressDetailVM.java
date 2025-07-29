@@ -1,5 +1,6 @@
 package com.myproject.locationservice.view_model.address;
 
+import com.myproject.locationservice.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,5 +40,23 @@ public class AddressDetailVM {
 
 	private Long countryId;
 	private String countryName;
+
+	public static AddressDetailVM fromModel(Address address) {
+		return AddressDetailVM.builder()
+			.id(address.getId())
+			.contactName(address.getContactName())
+			.phone(address.getPhone())
+			.addressLine1(address.getAddressLine1())
+			.addressLine2(address.getAddressLine2())
+			.city(address.getCity())
+			.districtId(address.getDistrict().getId())
+			.districtName(address.getDistrict().getName())
+			.stateOrProvinceId(address.getStateOrProvince().getId())
+			.stateOrProvinceName(address.getStateOrProvince().getName())
+			.countryId(address.getCountry().getId())
+			.countryName(address.getCountry().getName())
+			.zipCode(address.getZipCode())
+			.build();
+	}
 
 }

@@ -1,0 +1,35 @@
+package com.myproject.mediaservice.config;
+
+import java.util.Optional;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * @author nguyenle
+ * @since 10:34 AM Tue 7/29/2025
+ */
+@Configuration
+@EnableJpaRepositories("com.myproject.mediaservice.repository")
+@EntityScan("com.myproject.mediaservice.model")
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
+public class DatabaseAuditorAwareConfig {
+
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return () -> {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (authentication == null) {
+				return Optional.of("");
+			}
+			return Optional.of(authentication.getName());
+		};
+	}
+
+}

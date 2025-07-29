@@ -6,6 +6,7 @@ package com.myproject.commonlibs.mapper;
  */
 
 import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
@@ -41,6 +42,7 @@ public interface EntityCreateUpdateMapper<M, V, R> {
 	 * @param m The model entity to update.
 	 * @param v The view model with updated values.
 	 */
+	@Mapping(target = "id", ignore = true)
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void partialUpdate(@MappingTarget M m, V v);
 
