@@ -65,7 +65,7 @@ public class BackOfficeCountryController {
 
 	@PostMapping
 	@ApiResponses(value = {
-		@ApiResponse(responseCode = "201", description = "Ok",
+		@ApiResponse(responseCode = "201", description = "Created",
 			content = @Content(schema = @Schema(implementation = CountryVM.class))),
 		@ApiResponse(responseCode = "400", description = "Bad request",
 			content = @Content(schema = @Schema(implementation = ErrorVM.class)))})
@@ -73,7 +73,7 @@ public class BackOfficeCountryController {
 		@Valid @RequestBody CountryPostVM countryPostVM,
 		UriComponentsBuilder uriComponentsBuilder
 	) {
-		Country country = countryService.create(countryPostVM);
+		Country country = countryService.createCountry(countryPostVM);
 		return ResponseEntity.created(uriComponentsBuilder
 			.replacePath("/countries/{id}")
 			.buildAndExpand(country.getId())
@@ -93,7 +93,7 @@ public class BackOfficeCountryController {
 		@PathVariable(name = "id") Long id,
 		@Valid @RequestBody CountryPostVM countryPostVM
 	) {
-		countryService.update(countryPostVM, id);
+		countryService.updateCountry(countryPostVM, id);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -107,7 +107,7 @@ public class BackOfficeCountryController {
 		@ApiResponse(responseCode = "400", description = "Bad request",
 			content = @Content(schema = @Schema(implementation = ErrorVM.class)))})
 	public ResponseEntity<?> deleteCountry(@PathVariable(name = "id") Long id) {
-		countryService.delete(id);
+		countryService.deleteCountry(id);
 		return ResponseEntity.noContent().build();
 	}
 

@@ -61,6 +61,14 @@ public abstract class AbstractControllerAdvice {
 		return buildErrorResponse(status, message, null, ex, request);
 	}
 
+	@ExceptionHandler(DuplicatedException.class)
+	public ResponseEntity<?> handleDuplicatedException(DuplicatedException ex, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = ex.getMessage();
+
+		return buildErrorResponse(status, message, null, ex, request);
+	}
+
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<?> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

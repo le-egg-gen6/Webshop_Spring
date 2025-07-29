@@ -15,11 +15,11 @@ public interface CountryService {
 
 	CountryVM findById(Long id);
 
-	Country create(CountryPostVM countryPostVM);
+	Country createCountry(CountryPostVM countryPostVM);
 
-	void update(CountryPostVM countryPostVm, Long id);
+	void updateCountry(CountryPostVM countryPostVm, Long id);
 
-	void delete(Long id);
+	void deleteCountry(Long id);
 
 	CountryListVM getPageableCountries(int pageIndex, int pageSize);
 }
