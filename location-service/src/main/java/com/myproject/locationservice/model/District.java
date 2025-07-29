@@ -40,9 +40,10 @@ public class District extends AbstractAuditEntity {
 	@Column(length = 500)
 	private String type;
 
+	@Column(length = 500)
 	private String location;
 
 	@ManyToOne
-	@JoinColumn(name = "state_or_province_id", nullable = false)
-	private StateOrProvince stateOrProvince;
+	@JoinColumn(name = "state_province_id", nullable = false)
+	private StateOrProvince stateProvince;
 }

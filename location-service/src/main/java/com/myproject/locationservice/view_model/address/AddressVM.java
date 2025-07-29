@@ -33,7 +33,7 @@ public class AddressVM {
 
 	private Long districtId;
 
-	private Long stateOrProvinceId;
+	private Long stateProvinceId;
 
 	private Long countryId;
 }

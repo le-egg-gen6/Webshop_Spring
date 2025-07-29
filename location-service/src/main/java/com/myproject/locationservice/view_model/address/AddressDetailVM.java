@@ -35,8 +35,8 @@ public class AddressDetailVM {
 	private Long districtId;
 	private String districtName;
 
-	private Long stateOrProvinceId;
-	private String stateOrProvinceName;
+	private Long stateProvinceId;
+	private String stateProvinceName;
 
 	private Long countryId;
 	private String countryName;
@@ -51,8 +51,8 @@ public class AddressDetailVM {
 			.city(address.getCity())
 			.districtId(address.getDistrict().getId())
 			.districtName(address.getDistrict().getName())
-			.stateOrProvinceId(address.getStateOrProvince().getId())
-			.stateOrProvinceName(address.getStateOrProvince().getName())
+			.stateProvinceId(address.getStateProvince().getId())
+			.stateProvinceName(address.getStateProvince().getName())
 			.countryId(address.getCountry().getId())
 			.countryName(address.getCountry().getName())
 			.zipCode(address.getZipCode())

@@ -18,9 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nguyenle
@@ -29,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CountryServiceImpl implements CountryService {
 
 	private static final String DEFAULT_COUNTRY_SORT_FIELD = "name";
@@ -41,7 +38,6 @@ public class CountryServiceImpl implements CountryService {
 	private final CountryMapper countryMapper;
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<CountryVM> findAllCountries() {
 		return countryRepository
 			.findAll(Sort.by(DEFAULT_SORT_DIRECTION, DEFAULT_COUNTRY_SORT_FIELD))
@@ -51,7 +47,6 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public CountryVM findById(Long id) {
 		Country country = countryRepository.findById(id).orElseThrow(
 			() -> new NotFoundException(ExceptionConstant.COUNTRY_NOT_FOUND, id)
@@ -60,7 +55,6 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional
 	public Country createCountry(CountryPostVM countryPostVM) {
 		if (countryRepository.existsByAlpha2CodeIgnoreCase(countryPostVM.getAlpha2Code())) {
 			throw new DuplicatedException(ExceptionConstant.CODE_ALREADY_EXISTED, countryPostVM.getAlpha2Code());
@@ -72,7 +66,6 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional
 	public void updateCountry(CountryPostVM countryPostVM, Long id) {
 		Country country = countryRepository
 			.findById(id)
@@ -88,7 +81,6 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional
 	public void deleteCountry(Long id) {
 		boolean isCountryExisted = countryRepository.existsById(id);
 		if (!isCountryExisted) {
@@ -98,7 +90,6 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public CountryListVM getPageableCountries(int pageIndex, int pageSize) {
 		Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.by(DEFAULT_SORT_DIRECTION, DEFAULT_COUNTRY_SORT_FIELD));
 		Page<Country> countries = countryRepository.findAll(pageable);

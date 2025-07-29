@@ -1,15 +1,12 @@
-package com.myproject.locationservice.controller.storefront;
+package com.myproject.locationservice.controller.backoffice;
 
 import com.myproject.commonlibs.view_model.ErrorVM;
-import com.myproject.locationservice.model.District;
 import com.myproject.locationservice.service.DistrictService;
 import com.myproject.locationservice.view_model.district.DistrictVM;
-import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 10:19 AM Tue 7/29/2025
  */
 @RestController
-@RequestMapping(path = "/storefront/districts")
+@RequestMapping(path = "/backoffice/districts")
 @RequiredArgsConstructor
-public class StorefrontDistrictController {
+public class BackOfficeDistrictController {
 
 	private final DistrictService districtService;
 
@@ -37,5 +34,4 @@ public class StorefrontDistrictController {
 	public ResponseEntity<?> getListDistrict(@PathVariable Long stateOrProvinceId) {
 		return ResponseEntity.ok(districtService.getListDistrictInStateOrProvince(stateOrProvinceId));
 	}
-
 }

@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface StateOrProvinceService {
 
-	StateOrProvinceVM findById(Long id);
+	StateOrProvinceVM getById(Long id);
 
-	List<StateOrProvinceVM> findAll();
+	List<StateOrProvinceVM> getAll();
 
 	List<StateOrProvinceVM> getAllByCountryId(Long countryId);
 

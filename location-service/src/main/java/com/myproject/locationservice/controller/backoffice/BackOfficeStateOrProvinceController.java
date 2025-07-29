@@ -5,7 +5,6 @@ import com.myproject.commonlibs.view_model.ErrorVM;
 import com.myproject.locationservice.mapper.StateOrProvinceMapper;
 import com.myproject.locationservice.model.StateOrProvince;
 import com.myproject.locationservice.service.StateOrProvinceService;
-import com.myproject.locationservice.view_model.country.CountryPostVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceDetailVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvincePostVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
@@ -67,7 +66,7 @@ public class BackOfficeStateOrProvinceController {
 		@ApiResponse(responseCode = "404", description = "Not found",
 			content = @Content(schema = @Schema(implementation = ErrorVM.class)))})
 	public ResponseEntity<?> getStateOrProvince(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(stateOrProvinceService.findById(id));
+		return ResponseEntity.ok(stateOrProvinceService.getById(id));
 	}
 
 	@GetMapping("state-country-names")

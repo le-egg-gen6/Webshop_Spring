@@ -20,7 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nguyenle
@@ -29,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class StateOrProvinceServiceImpl implements StateOrProvinceService {
 
 	private static final String DEFAULT_STATE_OR_PROVINCE_SORT_FIELD = "name";
@@ -43,44 +41,49 @@ public class StateOrProvinceServiceImpl implements StateOrProvinceService {
 
 
 	@Override
-	@Transactional(readOnly = true)
-	public StateOrProvinceVM findById(Long id) {
+	public StateOrProvinceVM getById(Long id) {
 		StateOrProvince stateOrProvince = stateOrProvinceRepository.findById(id)
 			.orElseThrow(
 				() -> new NotFoundException(ExceptionConstant.STATE_OR_PROVINCE_NOT_FOUND, id)
 			);
-		return stateOrProvinceMapper.toVmResponse(stateOrProvince);
+		StateOrProvinceVM vm = stateOrProvinceMapper.toVmResponse(stateOrProvince);
+		vm.setCountryId(stateOrProvince.getCountry().getId());
+		return vm;
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<StateOrProvinceVM> findAll() {
+	public List<StateOrProvinceVM> getAll() {
 		return stateOrProvinceRepository.findAll()
 			.stream()
-			.map(stateOrProvinceMapper::toVmResponse)
+			.map(stateOrProvince -> {
+				StateOrProvinceVM vm = stateOrProvinceMapper.toVmResponse(stateOrProvince);
+				vm.setCountryId(stateOrProvince.getCountry().getId());
+				return vm;
+			})
 			.toList();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<StateOrProvinceVM> getAllByCountryId(Long countryId) {
 		return stateOrProvinceRepository.findByCountryIdOrderByNameAsc(countryId)
 			.stream()
-			.map(stateOrProvinceMapper::toVmResponse)
+			.map(stateOrProvince -> {
+				StateOrProvinceVM vm = stateOrProvinceMapper.toVmResponse(stateOrProvince);
+				vm.setCountryId(countryId);
+				return vm;
+			})
 			.toList();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<StateOrProvinceDetailVM> getStateOrProvinceWithCountryName(List<Long> stateOrProvinceIds) {
-		List<StateOrProvince> stateOrProvinces = stateOrProvinceRepository.findByIdWithPreFetchCountry(stateOrProvinceIds);
+		List<StateOrProvince> stateOrProvinces = stateOrProvinceRepository.findByIdIn(stateOrProvinceIds);
 		return stateOrProvinces.stream()
 			.map(StateOrProvinceDetailVM::fromModel)
 			.toList();
 	}
 
 	@Override
-	@Transactional
 	public StateOrProvinceListVM getPageableStateOrProvinceByCountryId(int pageIndex, int pageSize, Long countryId) {
 		Pageable pageable = PageRequest.of(pageIndex, pageSize, Sort.by(DEFAULT_SORT_DIRECTION, DEFAULT_STATE_OR_PROVINCE_SORT_FIELD));
 		Page<StateOrProvince> stateOrProvincesPage = stateOrProvinceRepository.findByCountryId(countryId, pageable);
@@ -89,13 +92,16 @@ public class StateOrProvinceServiceImpl implements StateOrProvinceService {
 		StateOrProvinceListVM stateOrProvinceListVM = new StateOrProvinceListVM();
 		stateOrProvinceListVM.applyPageableMetadata(stateOrProvincesPage);
 		stateOrProvinceListVM.setStateOrProvinces(
-			stateOrProvinceList.stream().map(stateOrProvinceMapper::toVmResponse).toList()
-		);
+			stateOrProvinceList.stream().map(stateOrProvince -> {
+					StateOrProvinceVM vm = stateOrProvinceMapper.toVmResponse(stateOrProvince);
+					vm.setCountryId(countryId);
+					return vm;
+				}
+			).toList());
 		return stateOrProvinceListVM;
 	}
 
 	@Override
-	@Transactional
 	public StateOrProvince createStateOrProvince(StateOrProvincePostVM stateOrProvinceVM) {
 		Long countryId = stateOrProvinceVM.getCountryId();
 		boolean isCountryExist = countryRepository.existsById(countryId);
@@ -111,7 +117,6 @@ public class StateOrProvinceServiceImpl implements StateOrProvinceService {
 	}
 
 	@Override
-	@Transactional
 	public void updateStateOrProvince(StateOrProvincePostVM stateOrProvinceVM, Long id) {
 		StateOrProvince stateOrProvince = stateOrProvinceRepository.findById(id)
 			.orElseThrow(
@@ -122,15 +127,12 @@ public class StateOrProvinceServiceImpl implements StateOrProvinceService {
 			throw new DuplicatedException(ExceptionConstant.NAME_ALREADY_EXISTED, stateOrProvinceVM.getName());
 		}
 
-		stateOrProvince.setName(stateOrProvinceVM.getName());
-		stateOrProvince.setCode(stateOrProvinceVM.getCode());
-		stateOrProvince.setType(stateOrProvinceVM.getType());
+		stateOrProvinceMapper.partialUpdate(stateOrProvince, stateOrProvinceVM);
 
 		stateOrProvinceRepository.save(stateOrProvince);
 	}
 
 	@Override
-	@Transactional
 	public void deleteStateOrProvince(Long id) {
 		boolean isStateOrProvinceExist = stateOrProvinceRepository.existsById(id);
 		if (!isStateOrProvinceExist) {

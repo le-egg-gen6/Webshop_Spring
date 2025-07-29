@@ -57,8 +57,8 @@ public class Address extends AbstractAuditEntity {
 	private District district;
 
 	@ManyToOne
-	@JoinColumn(name = "state_or_province_id", nullable = false)
-	private StateOrProvince stateOrProvince;
+	@JoinColumn(name = "state_province_id", nullable = false)
+	private StateOrProvince stateProvince;
 
 	@ManyToOne
 	@JoinColumn(name = "country_id", nullable = false)
