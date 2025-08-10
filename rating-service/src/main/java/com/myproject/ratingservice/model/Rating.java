@@ -1,11 +1,7 @@
 package com.myproject.ratingservice.model;
 
 import com.myproject.commonlibs.model.AbstractAuditEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +27,7 @@ public class Rating extends AbstractAuditEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(length = 500, name = "content")
 	private String content;
 
 	private int ratingStar;
@@ -39,9 +36,9 @@ public class Rating extends AbstractAuditEntity {
 
 	private String productName;
 
-	private String lastName;
-
 	private String firstName;
+
+	private String lastName;
 
 	@Override
 	public boolean equals(Object o) {
