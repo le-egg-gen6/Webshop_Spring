@@ -36,15 +36,9 @@ public class AddressPostVM {
 	@Size(max = 500)
 	private String addressLine2;
 
-	@Size(max = 500)
-	private String city;
-
 	@Size(max = 30)
 	private String zipCode;
 
 	private Long districtId;
 
-	private Long stateProvinceId;
-
-	private Long countryId;
 }

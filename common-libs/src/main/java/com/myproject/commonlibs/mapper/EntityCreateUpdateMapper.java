@@ -15,10 +15,10 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * "response". Then this base mapper will help us to manage mapping them.
  *
  * @param <M> The entity type that represents the model.
- * @param <V> The type that represents the view model.
- * @param <R> The type that represents the view model response.
+ * @param <C_VM> The type that represents the create/update view model.
+ * @param <VM> The type that represents the view model response.
  */
-public interface EntityCreateUpdateMapper<M, V, R> {
+public interface EntityCreateUpdateMapper<M, C_VM, VM> {
 
 	/**
 	 * Converts the provided view model to its corresponding model entity.
@@ -26,15 +26,7 @@ public interface EntityCreateUpdateMapper<M, V, R> {
 	 * @param vm The view model object to convert.
 	 * @return The model entity corresponding to the view model.
 	 */
-	M toModel(V vm);
-
-	/**
-	 * Converts the provided model entity to its corresponding view model.
-	 *
-	 * @param m The model entity to convert.
-	 * @return The view model corresponding to the model entity.
-	 */
-	V toVm(M m);
+	M toModel(C_VM vm);
 
 	/**
 	 * Partially updates the provided model entity with values from the given view model. Fields in the view model that are null will be ignored.
@@ -44,7 +36,7 @@ public interface EntityCreateUpdateMapper<M, V, R> {
 	 */
 	@Mapping(target = "id", ignore = true)
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-	void partialUpdate(@MappingTarget M m, V v);
+	void partialUpdate(@MappingTarget M m, C_VM v);
 
 	/**
 	 * Converts the provided model entity to its corresponding view model response.
@@ -52,6 +44,7 @@ public interface EntityCreateUpdateMapper<M, V, R> {
 	 * @param m The model entity to convert.
 	 * @return The view model response corresponding to the model entity.
 	 */
-	R toVmResponse(M m);
+	@BeanMapping(ignoreByDefault = true)
+	VM toVmResponse(M m);
 
 }

@@ -20,7 +20,7 @@ public class StorefrontCountryController {
 
 	@GetMapping
 	public ResponseEntity<?> listCountries() {
-		return ResponseEntity.ok(countryService.findAllCountries());
+		return ResponseEntity.ok(countryService.getAll());
 	}
 
 }

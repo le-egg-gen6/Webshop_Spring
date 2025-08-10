@@ -4,6 +4,7 @@ import com.myproject.commonlibs.exception.DuplicatedException;
 import com.myproject.commonlibs.exception.NotFoundException;
 import com.myproject.locationservice.exception.ExceptionConstant;
 import com.myproject.locationservice.mapper.CountryMapper;
+import com.myproject.locationservice.mapper.StateOrProvinceMapper;
 import com.myproject.locationservice.model.Country;
 import com.myproject.locationservice.repository.CountryRepository;
 import com.myproject.locationservice.service.CountryService;
@@ -12,6 +13,8 @@ import com.myproject.locationservice.view_model.country.CountryPostVM;
 import com.myproject.locationservice.view_model.country.CountryVM;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -38,20 +41,11 @@ public class CountryServiceImpl implements CountryService {
 	private final CountryMapper countryMapper;
 
 	@Override
-	public List<CountryVM> findAllCountries() {
-		return countryRepository
-			.findAll(Sort.by(DEFAULT_SORT_DIRECTION, DEFAULT_COUNTRY_SORT_FIELD))
-			.stream()
-			.map(countryMapper::toVmResponse)
-			.collect(Collectors.toList());
-	}
-
-	@Override
-	public CountryVM findById(Long id) {
+	public CountryVM getById(Long id) {
 		Country country = countryRepository.findById(id).orElseThrow(
 			() -> new NotFoundException(ExceptionConstant.COUNTRY_NOT_FOUND, id)
 		);
-		return countryMapper.toVmResponse(country);
+        return countryMapper.toVmResponse(country);
 	}
 
 	@Override

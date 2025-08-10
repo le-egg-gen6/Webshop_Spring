@@ -11,15 +11,14 @@ import java.util.List;
  * @since 10:26 AM Tue 7/29/2025
  */
 public interface CountryService {
-	List<CountryVM> findAllCountries();
 
-	CountryVM findById(Long id);
+	CountryVM getById(Long id);
+
+	CountryListVM getPageableCountries(int pageIndex, int pageSize);
 
 	Country createCountry(CountryPostVM countryPostVM);
 
 	void updateCountry(CountryPostVM countryPostVm, Long id);
 
 	void deleteCountry(Long id);
-
-	CountryListVM getPageableCountries(int pageIndex, int pageSize);
 }

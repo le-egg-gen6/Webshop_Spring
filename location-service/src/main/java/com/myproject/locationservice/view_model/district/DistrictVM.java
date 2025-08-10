@@ -1,10 +1,10 @@
 package com.myproject.locationservice.view_model.district;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.myproject.locationservice.view_model.address.AddressVM;
+import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
+import lombok.*;
+
+import java.util.List;
 
 /**
  * @author nguyenle
@@ -25,6 +25,8 @@ public class DistrictVM {
 
 	private String location;
 
-	private Long stateProvinceId;
+	private StateOrProvinceVM stateProvince;
+
+	private List<AddressVM> addresses;
 }
 

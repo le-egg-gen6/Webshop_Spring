@@ -1,5 +1,8 @@
 package com.myproject.locationservice.service;
 
+import com.myproject.locationservice.model.District;
+import com.myproject.locationservice.view_model.district.DistrictListVm;
+import com.myproject.locationservice.view_model.district.DistrictPostVM;
 import com.myproject.locationservice.view_model.district.DistrictVM;
 import java.util.List;
 
@@ -9,12 +12,16 @@ import java.util.List;
  */
 public interface DistrictService {
 
+	DistrictListVm getAll(int pageIndex, int pageSize);
+
 	DistrictVM getById(Long id);
 
-	List<DistrictVM> getAll();
+	List<DistrictVM> getAllByStateProvinceId(Long stateProvinceId);
 
-	List<DistrictVM> getListDistrictInStateOrProvince(Long stateOrProvinceId);
+	District createDistrict(DistrictPostVM districtVM);
 
+	void updateDistrict(DistrictPostVM districtVM, Long id);
 
+	void deleteDistrict(Long id);
 
 }

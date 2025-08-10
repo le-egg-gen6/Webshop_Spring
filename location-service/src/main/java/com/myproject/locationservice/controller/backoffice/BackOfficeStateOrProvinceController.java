@@ -1,11 +1,10 @@
 package com.myproject.locationservice.controller.backoffice;
 
-import com.myproject.commonlibs.constant.PagingConstant;
+import com.myproject.commonlibs.constant.PagingAndSortingConstant;
 import com.myproject.commonlibs.view_model.ErrorVM;
 import com.myproject.locationservice.mapper.StateOrProvinceMapper;
 import com.myproject.locationservice.model.StateOrProvince;
 import com.myproject.locationservice.service.StateOrProvinceService;
-import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceDetailVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvincePostVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,9 +41,9 @@ public class BackOfficeStateOrProvinceController {
 
 	@GetMapping("/paging")
 	public ResponseEntity<?> getPageableStateOrProvinces(
-		@RequestParam(value = "pageIndex", defaultValue = PagingConstant.DEFAULT_PAGE_NUMBER, required = false)
+		@RequestParam(value = "pageIndex", defaultValue = PagingAndSortingConstant.DEFAULT_PAGE_NUMBER, required = false)
 		int pageIndex,
-		@RequestParam(value = "pageSize", defaultValue = PagingConstant.DEFAULT_PAGE_SIZE, required = false)
+		@RequestParam(value = "pageSize", defaultValue = PagingAndSortingConstant.DEFAULT_PAGE_SIZE, required = false)
 		int pageSize,
 		@RequestParam(value = "countryId", required = false)
 		Long countryId

@@ -5,6 +5,7 @@ import com.myproject.locationservice.model.StateOrProvince;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvincePostVM;
 import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 /**
@@ -14,4 +15,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface StateOrProvinceMapper extends EntityCreateUpdateMapper<StateOrProvince, StateOrProvincePostVM, StateOrProvinceVM> {
 
+    @Override
+    @Mapping(target = "country", ignore = true)
+    @Mapping(target = "districts", ignore = true)
+    StateOrProvinceVM toVmResponse(StateOrProvince stateOrProvince);
 }

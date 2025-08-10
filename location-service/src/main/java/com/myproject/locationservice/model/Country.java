@@ -57,6 +57,6 @@ public class Country extends AbstractAuditEntity {
 	private Boolean districtEnabled;
 
 	@OneToMany(mappedBy = "country")
-	private List<StateOrProvince> stateOrProvinces = new ArrayList<>();
+	private List<StateOrProvince> stateProvinces = new ArrayList<>();
 
 }

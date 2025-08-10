@@ -1,5 +1,6 @@
 package com.myproject.locationservice.view_model.address;
 
+import com.myproject.locationservice.view_model.district.DistrictVM;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,9 +32,5 @@ public class AddressVM {
 
 	private String zipCode;
 
-	private Long districtId;
-
-	private Long stateProvinceId;
-
-	private Long countryId;
+	private DistrictVM district;
 }

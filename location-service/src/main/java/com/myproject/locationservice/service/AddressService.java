@@ -1,9 +1,9 @@
 package com.myproject.locationservice.service;
 
-import com.myproject.locationservice.view_model.address.AddressDetailVM;
+import com.myproject.locationservice.model.Address;
+import com.myproject.locationservice.view_model.address.AddressListVM;
 import com.myproject.locationservice.view_model.address.AddressPostVM;
 import com.myproject.locationservice.view_model.address.AddressVM;
-import java.util.List;
 
 /**
  * @author nguyenle
@@ -11,13 +11,16 @@ import java.util.List;
  */
 public interface AddressService {
 
-//	AddressDetailVM getById(Long id);
-//
-//	List<AddressDetailVM> findAddressList(List<Long> ids);
-//
-//	AddressVM createAddress(AddressPostVM addressPostVM);
-//
-//	void updateAddress(AddressPostVM addressPostVM, Long id);
-//
-//	void deleteAddress(Long id);
+    AddressListVM getAll(int pageIndex, int pageSize);
+
+    AddressVM getById(Long id);
+
+    AddressListVM getPageableAddressesByDistrictId(Long districtID, int pageIndex, int pageSize);
+
+    Address createAddress(AddressPostVM addressVM);
+
+    void updateAddress(AddressPostVM addressVM, Long id);
+
+    void deleteAddress(Long id);
+
 }

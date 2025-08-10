@@ -1,6 +1,6 @@
 package com.myproject.locationservice.controller.backoffice;
 
-import com.myproject.commonlibs.constant.PagingConstant;
+import com.myproject.commonlibs.constant.PagingAndSortingConstant;
 import com.myproject.commonlibs.view_model.ErrorVM;
 import com.myproject.locationservice.mapper.CountryMapper;
 import com.myproject.locationservice.model.Country;
@@ -40,14 +40,14 @@ public class BackOfficeCountryController {
 
 	@GetMapping
 	private ResponseEntity<?> listCountries() {
-		return ResponseEntity.ok(countryService.findAllCountries());
+		return ResponseEntity.ok(countryService.getAll());
 	}
 
 	@GetMapping("/paging")
 	public ResponseEntity<?> getPageableCountries(
-		@RequestParam(value = "pageIndex", defaultValue = PagingConstant.DEFAULT_PAGE_NUMBER, required = false)
+		@RequestParam(value = "pageIndex", defaultValue = PagingAndSortingConstant.DEFAULT_PAGE_NUMBER, required = false)
 		int pageIndex,
-		@RequestParam(value = "pageSize", defaultValue = PagingConstant.DEFAULT_PAGE_SIZE, required = false)
+		@RequestParam(value = "pageSize", defaultValue = PagingAndSortingConstant.DEFAULT_PAGE_SIZE, required = false)
 		int pageSize
 	) {
 		return ResponseEntity.ok(countryService.getPageableCountries(pageIndex, pageSize));
@@ -60,7 +60,7 @@ public class BackOfficeCountryController {
 		@ApiResponse(responseCode = "404", description = "Not found",
 			content = @Content(schema = @Schema(implementation = ErrorVM.class)))})
 	public ResponseEntity<?> getCountry(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(countryService.findById(id));
+		return ResponseEntity.ok(countryService.getById(id));
 	}
 
 	@PostMapping

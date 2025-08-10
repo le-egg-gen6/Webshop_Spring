@@ -1,14 +1,7 @@
 package com.myproject.locationservice.model;
 
 import com.myproject.commonlibs.model.AbstractAuditEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,22 +39,11 @@ public class Address extends AbstractAuditEntity {
 	@Column(length = 500, name = "address_line_2")
 	private String addressLine2;
 
-	@Column(length = 500)
-	private String city;
-
 	@Column(length = 30)
 	private String zipCode;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "district_id", nullable = false)
 	private District district;
-
-	@ManyToOne
-	@JoinColumn(name = "state_province_id", nullable = false)
-	private StateOrProvince stateProvince;
-
-	@ManyToOne
-	@JoinColumn(name = "country_id", nullable = false)
-	private Country country;
 
 }

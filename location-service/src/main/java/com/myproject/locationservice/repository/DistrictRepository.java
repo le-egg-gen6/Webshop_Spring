@@ -11,5 +11,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DistrictRepository extends JpaRepository<District, Long> {
+
 	List<District> findAllByStateProvinceIdOrderByNameAsc(Long stateProvinceId);
+
+	boolean existsByNameIgnoreCaseAndStateProvinceId(String name, Long stateProvinceId);
+
+	boolean existsByNameIgnoreCaseAndStateProvinceIdAndIdNot(String name, Long stateProvinceId, Long id);
 }

@@ -1,10 +1,14 @@
 package com.myproject.locationservice.view_model.country;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.myproject.locationservice.view_model.state_or_province.StateOrProvinceVM;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * @author nguyenle
@@ -15,6 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CountryVM {
 
 	private Long id;
@@ -34,4 +39,6 @@ public class CountryVM {
 	private Boolean zipCodeEnabled;
 
 	private Boolean districtEnabled;
+
+	private List<StateOrProvinceVM> stateProvinces;
 }
